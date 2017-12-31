@@ -24,6 +24,7 @@ bookInfo = {'挽明': (['https://www.miaobige.com/read/13395/11394345.html'],
             }
 bookName = '大王饶命'
 
+
 class NovelSpider(scrapy.Spider):
     name = 'novel'
     allowed_domains = ['www.miaobige.com']

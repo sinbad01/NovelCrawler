@@ -9,6 +9,8 @@ import scrapy
 
 
 class NovelcrawlerItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
+    # define the fields for your item here like
+    path = scrapy.Field()
+    title = scrapy.Field()
+    content = scrapy.Field()
     pass

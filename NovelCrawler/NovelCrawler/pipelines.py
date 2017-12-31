@@ -8,4 +8,7 @@
 
 class NovelcrawlerPipeline(object):
     def process_item(self, item, spider):
+        with open(item.get('path'), 'ab') as dest:
+            dest.write(item.get('title').encode(encoding="utf-8"))
+            dest.write(item.get('content').encode(encoding="utf-8"))
         return item

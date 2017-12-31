@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7deea48d-d23f-47e3-be73-6eb22bd5b755" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NovelCrawler/NovelCrawler/items.py" afterPath="$PROJECT_DIR$/NovelCrawler/NovelCrawler/items.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NovelCrawler/NovelCrawler/pipelines.py" afterPath="$PROJECT_DIR$/NovelCrawler/NovelCrawler/pipelines.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NovelCrawler/NovelCrawler/settings.py" afterPath="$PROJECT_DIR$/NovelCrawler/NovelCrawler/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NovelCrawler/NovelCrawler/spiders/novel.py" afterPath="$PROJECT_DIR$/NovelCrawler/NovelCrawler/spiders/novel.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,11 +19,41 @@
       <file leaf-file-name="novel.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NovelCrawler/NovelCrawler/spiders/novel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1334">
-              <caret line="61" column="37" lean-forward="false" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
+            <state relative-caret-position="-441">
+              <caret line="24" column="17" lean-forward="true" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
               <folding>
                 <element signature="e#24#37#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="items.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NovelCrawler/NovelCrawler/items.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="12" column="25" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NovelCrawler/NovelCrawler/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="129">
+              <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="2" selection-end-line="69" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pipelines.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NovelCrawler/NovelCrawler/pipelines.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="250">
+              <caret line="10" column="32" lean-forward="false" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="32" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -46,6 +79,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>ITEM_PIPELINES</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -54,14 +92,18 @@
       <list>
         <option value="$PROJECT_DIR$/NovelCrawler/NovelCrawler/spiders/TutorialItem.py" />
         <option value="$PROJECT_DIR$/NovelCrawler/NovelCrawler/spiders/TutorialPipeline.py" />
+        <option value="$PROJECT_DIR$/NovelCrawler/NovelCrawler/pipelines.py" />
+        <option value="$PROJECT_DIR$/NovelCrawler/NovelCrawler/items.py" />
+        <option value="$PROJECT_DIR$/NovelCrawler/NovelCrawler/settings.py" />
         <option value="$PROJECT_DIR$/NovelCrawler/NovelCrawler/spiders/novel.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="754" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -196,7 +238,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.092708334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -262,10 +303,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/NovelCrawler/NovelCrawler/items.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="12" column="25" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NovelCrawler/NovelCrawler/pipelines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="10" column="32" lean-forward="false" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NovelCrawler/NovelCrawler/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="2" selection-end-line="69" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/NovelCrawler/NovelCrawler/spiders/novel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1334">
-          <caret line="61" column="37" lean-forward="false" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
+        <state relative-caret-position="-441">
+          <caret line="24" column="17" lean-forward="true" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
           <folding>
             <element signature="e#24#37#0" expanded="true" />
           </folding>
