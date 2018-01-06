@@ -15,7 +15,8 @@ xpathMap = {'title': '//*[@id="info"]/div/h1/text()',
 
 
 bookInfo = [
-    ('主神调查员 ', ['http://www.sjtxt.com/book/89809/19703045.html'])
+    #  第五十章 绝地武士
+    ('主神调查员 ', [' http://www.sjtxt.com/book/89809/20212369.html'])
 ]
 idx = 0
 # 保存路径
