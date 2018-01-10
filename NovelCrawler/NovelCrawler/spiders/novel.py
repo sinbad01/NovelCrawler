@@ -15,11 +15,19 @@ siteInfo = [
                                'prev': '//*[@id="center"]/div[2]/a[1]//@href',
                                "next": '//*[@id="center"]/div[2]/a[5]//@href'}
     ),
+
     (
         ["www.sjtxt.com"], {'title': '//*[@id="info"]/div/h1/text()',
                             'content': '//*[@id="content1"]/text()',
                             'prev': '//*[@id="info"]/div/div[2]/a[2]//@href',
                             "next": '//*[@id="info"]/div/div[2]/a[4]//@href'}
+    ),
+
+    (
+        ["http://www.88dushu.com"], {'title': '/html/body/div[5]/h1/text()',
+                                     'content': '/html/body/div[5]/div[4]/text()',
+                                     'prev': '/html/body/div[5]/div[1]/a[1]//@href',
+                                     "next": '//html/body/div[5]/div[1]/a[3]//@href'}
     )
 ]
 
@@ -41,10 +49,15 @@ bookInfo = [
     [
         # 第五十章 绝地武士
         ('主神调查员 ', ['http://www.sjtxt.com/book/89809/20212369.html'])
+    ],
+
+    [
+        # 第五十章 绝地武士
+        ('娱乐春秋', ['http://www.88dushu.com/xiaoshuo/95/95205/31816329.html'])
     ]
 ]
 # site, book
-idx = (1, 0)
+idx = (2, 0)
 
 # 保存路径
 bookName = bookInfo[idx[0]][idx[1]][0]
@@ -80,7 +93,8 @@ class NovelSpider(scrapy.Spider):
         title = selector.xpath(xpathMap['title']).extract_first()
         content = ''
         for para in selector.xpath(xpathMap['content']).extract():
-            if para != '\n' and para != '\r':
+            para = para.strip()
+            if len(para) > 0:
                 content += para + "\n\n"
             # logger.info('para: ' + para)
             # print(str.encode(para))
@@ -92,15 +106,27 @@ class NovelSpider(scrapy.Spider):
 
         next_href = response.urljoin(next_href)
         logger.info('next_href: ' + next_href)
-        logger.info('response.url: ' + response.url)
+        # logger.info('response.url: ' + response.url)
 
         if self.count == self.limit:
             logger.info("exit")
             return
         self.count += 1
-        
-        headers = {'Referer': response.url}
-        yield Request(next_href, callback=self.parse, dont_filter=True, headers=headers)
+
+        # headers = {'Host': 'www.miaobige.com',
+        #            'Connection': 'keep-alive',
+        #            'Cache-Control': 'max-age=0',
+        #            'Upgrade-Insecure-Requests': '1',
+        #            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+        #            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+        #            'DNT': '1',
+        #            'Accept-Encoding': 'gzip, deflate, br',
+        #            'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+        #            'Referer': 'https://www.miaobige.com/'}
+        # cookies = response.headers.getlist('Set-Cookie')
+        # for c in cookies:
+        #     print(c)
+        yield Request(next_href, callback=self.parse, dont_filter=True)
 
         # 直接使用相对路径next_href即可，等同于 Request
         # yield response.follow(next_href, callback=self.parse)
