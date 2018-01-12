@@ -43,7 +43,7 @@ bookInfo = [
         ('难道我是神', ['https://www.miaobige.com/read/18124/11502024.html']),
         #  451、李弦一拆台
         ('大王饶命', ['https://www.miaobige.com/read/18491/11492686.html']),
-        ('娱乐春秋', ['https://www.miaobige.com/read/18505/9938702.html'])
+        ('娱乐春秋', ['https://www.miaobige.com/read/18505/9938701.html'])
     ],
 
     [
@@ -57,7 +57,7 @@ bookInfo = [
     ]
 ]
 # site, book
-idx = (2, 0)
+idx = (0, 0)
 
 # 保存路径
 bookName = bookInfo[idx[0]][idx[1]][0]
@@ -75,6 +75,7 @@ class NovelSpider(scrapy.Spider):
         # 用于测试时及时停止
         self.count = 0
         self.limit = -2
+        self.cookies = self.transCookie('ctime=2018%2D01%2D13+05%3A41%3A20; click=A18505A; ASPSESSIONIDQAQCSCQT=PKMFHINDHMJHPJHHKMOHAACC; Hm_lvt_5d1243e3fcbf5e856c177a54c2ef34b3=1515750066; Hm_lpvt_5d1243e3fcbf5e856c177a54c2ef34b3=1515750096')
 
     def parse(self, response):
         logger.info('parse' + bookName)
@@ -113,20 +114,20 @@ class NovelSpider(scrapy.Spider):
             return
         self.count += 1
 
-        # headers = {'Host': 'www.miaobige.com',
-        #            'Connection': 'keep-alive',
-        #            'Cache-Control': 'max-age=0',
-        #            'Upgrade-Insecure-Requests': '1',
-        #            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
-        #            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-        #            'DNT': '1',
-        #            'Accept-Encoding': 'gzip, deflate, br',
-        #            'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
-        #            'Referer': 'https://www.miaobige.com/'}
+        headers = {'Host': 'www.miaobige.com',
+                   'Connection': 'keep-alive',
+                   'Cache-Control': 'max-age=0',
+                   'Upgrade-Insecure-Requests': '1',
+                   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
+                   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+                   'DNT': '1',
+                   'Accept-Encoding': 'gzip, deflate, br',
+                   'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+                   'Referer': response.url}
         # cookies = response.headers.getlist('Set-Cookie')
         # for c in cookies:
         #     print(c)
-        yield Request(next_href, callback=self.parse, dont_filter=True)
+        yield Request(next_href, callback=self.parse, dont_filter=True, headers=headers)
 
         # 直接使用相对路径next_href即可，等同于 Request
         # yield response.follow(next_href, callback=self.parse)
@@ -135,3 +136,15 @@ class NovelSpider(scrapy.Spider):
         with open(bookPath, 'ab') as dest:
             dest.write(title.encode(encoding="utf-8"))
             dest.write(content.encode(encoding="utf-8"))
+
+    def transCookie(self, cookies):
+        a = ['ASPSESSIONIDQAQCSCQT', 'click', 'ctime']
+        itemDict = {}
+        items = cookies.split(';')
+        for item in items:
+            key = item.split('=')[0].replace(' ', '')
+            value = item.split('=')[1]
+            # if key in a:
+            itemDict[key] = value
+        print(itemDict)
+        return itemDict
