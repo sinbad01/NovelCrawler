@@ -31,19 +31,11 @@ siteInfo = [
     )
 ]
 
-# 最新章节 2017-12-30
-# https://www.miaobige.com/read/13395/11394345.html
-# title: 第三卷 帝国之路 第66章 陕西冒出的乱子
 
 bookInfo = [
     [
         # 第三卷 帝国之路 第74章 殿试选拔
         ('挽明', ['https://www.miaobige.com/read/13395/11502144.html']),
-        # 320 雷霆万钧
-        ('难道我是神', ['https://www.miaobige.com/read/18124/11502024.html']),
-        #  451、李弦一拆台
-        ('大王饶命', ['https://www.miaobige.com/read/18491/11492686.html']),
-        ('娱乐春秋', ['https://www.miaobige.com/read/18505/9938701.html'])
     ],
 
     [
@@ -52,12 +44,16 @@ bookInfo = [
     ],
 
     [
-        # 第五十章 绝地武士
-        ('娱乐春秋', ['http://www.88dushu.com/xiaoshuo/95/95205/31816329.html'])
+
+        ('娱乐春秋', ['http://www.88dushu.com/xiaoshuo/95/95205/31816329.html']),
+        # 336 刑讯逼供 http://www.88dushu.com/xiaoshuo/94/94425/34265065.html
+        ('难道我是神', ['http://www.88dushu.com/xiaoshuo/94/94425/34265065.html']),
+        ('大王饶命', ['http://www.88dushu.com/xiaoshuo/95/95143/31782995.html']),
     ]
 ]
+
 # site, book
-idx = (0, 0)
+idx = (2, 1)
 
 # 保存路径
 bookName = bookInfo[idx[0]][idx[1]][0]
@@ -75,16 +71,12 @@ class NovelSpider(scrapy.Spider):
         # 用于测试时及时停止
         self.count = 0
         self.limit = -2
-        self.cookies = self.transCookie('ctime=2018%2D01%2D13+05%3A41%3A20; click=A18505A; ASPSESSIONIDQAQCSCQT=PKMFHINDHMJHPJHHKMOHAACC; Hm_lvt_5d1243e3fcbf5e856c177a54c2ef34b3=1515750066; Hm_lpvt_5d1243e3fcbf5e856c177a54c2ef34b3=1515750096')
+        # self.cookies = self.transCookie('ctime=2018%2D01%2D13+05%3A41%3A20; click=A18505A; ASPSESSIONIDQAQCSCQT=PKMFHINDHMJHPJHHKMOHAACC; Hm_lvt_5d1243e3fcbf5e856c177a54c2ef34b3=1515750066; Hm_lpvt_5d1243e3fcbf5e856c177a54c2ef34b3=1515750096')
 
     def parse(self, response):
         logger.info('parse' + bookName)
 
         selector = scrapy.Selector(response)
-
-        # prev_href = selector.xpath(xpathMap['prev']).extract_first()
-        # prev_href = 'https://www.miaobige.com/read/13395/' + prev_href
-        # print('prev_href: ' + prev_href)
 
         next_href = selector.xpath(xpathMap['next']).extract_first()
         if next_href is None:
@@ -124,10 +116,8 @@ class NovelSpider(scrapy.Spider):
                    'Accept-Encoding': 'gzip, deflate, br',
                    'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
                    'Referer': response.url}
-        # cookies = response.headers.getlist('Set-Cookie')
-        # for c in cookies:
-        #     print(c)
-        yield Request(next_href, callback=self.parse, dont_filter=True, headers=headers)
+
+        yield Request(next_href, callback=self.parse, dont_filter=True)
 
         # 直接使用相对路径next_href即可，等同于 Request
         # yield response.follow(next_href, callback=self.parse)
@@ -138,13 +128,12 @@ class NovelSpider(scrapy.Spider):
             dest.write(content.encode(encoding="utf-8"))
 
     def transCookie(self, cookies):
-        a = ['ASPSESSIONIDQAQCSCQT', 'click', 'ctime']
         itemDict = {}
         items = cookies.split(';')
         for item in items:
             key = item.split('=')[0].replace(' ', '')
             value = item.split('=')[1]
-            # if key in a:
             itemDict[key] = value
+
         print(itemDict)
         return itemDict
