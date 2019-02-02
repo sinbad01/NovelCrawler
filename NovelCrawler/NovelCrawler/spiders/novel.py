@@ -64,13 +64,53 @@ siteInfo = [
                                      'prev': '//div[@class="bottem1"]/a[2]/@href',
                                      "next": '//div[@class="bottem1"]/a[4]//@href'}
     ),
+
+    (
+
+        ["http://www.dingdiann.com"], {'title': '//div[@class="bookname"]/h1/text()',
+                                     'content': '//*[@id="content"]/p/text()',
+                                     'prev': '//div[@class="bottem1"]/a[2]/@href',
+                                     "next": '//div[@class="bottem1"]/a[4]//@href'}
+    ),
+
+    (
+        ["http://www.econtentware.com"], {'title': '//h1/text()',
+                                     'content': '//div[@class="neir a2"]/text()',
+                                     'prev': '//div[@class="pagebar"]/a[1]/@href',
+                                     "next": '//div[@class="pagebar"]/a[3]//@href'}
+    ),
+
+     # 2k中文
+    (
+        ["https://www.fpzw.com/"], {'title': '//div[@id="content"]/h2/text()',
+                                     'content': '//p[@class="Text"]/text()',
+                                     'prev': '//div[@class="thumb"]/a[0]/@href',
+                                     "next": '//div[@class="thumb"]/a[4]//@href'}
+    ),
+
+    # 天眼看小说
+    (
+        ["https://novel.zhwenpg.com"], {'title': '//h2/text()',
+                               'content': '//table[5]//p',
+                               'prev': '//table[4]/tr/td[1]/a/@href',
+                               "next": '//table[4]/tr/td[3]/a/@href'}
+    ),
+    # 有毒小说
+    (        
+        ["https://www.youdubook.com"], {'title': '//*[@id="ChapterMain"]/div[2]/text()',
+                               'content': '//*[@id="ChapterContent"]//p',
+                               'prev': '//*[@id="ChapterMain"]/div[6]/ul/li[1]/a/@href',
+                               "next": '//*[@id="ChapterMain"]/div[6]/ul/li[3]/a/@href'}
+    ),
 ]
 
 
 bookInfo = [
     [
         # 第三卷 帝国之路 第111章 广南国的使者
-        ('挽明', ['https://www.miaobige.com/read/13395/11940565.html'], 111),
+        ('挽明', ['https://www.miaobige.com/read/13395/11940565.html'], 0),
+        ('剑出华山', ['https://www.miaobige.com/read/8437/3663235.html'], 0),
+        ('大明狂士', ['https://www.miaobige.com/read/12440/5801281.html'], 0),
     ],
 
     [
@@ -90,6 +130,7 @@ bookInfo = [
         ('重生之超级富豪', ['https://www.88dushu.com/xiaoshuo/88/88282/27281624.html'], 0),
         ('护花小神农', ['https://www.88dushu.com/xiaoshuo/80/80103/22558520.html'], 0),
         ('超级修理大师', ['https://www.88dushu.com/xiaoshuo/66/66961/18138426.html'], 0),
+        ('被虫娘推倒', ['https://www.88dus.com/xiaoshuo/98/98336/33875260.html'], 0),
     ],
 
     [
@@ -102,20 +143,43 @@ bookInfo = [
     ],
 
     [
-        ('绿茵人生', ['http://www.shumil.com/lvyinrensheng/15520342.html'], 0)
+        ('绿茵人生', ['http://www.shumil.com/lvyinrensheng/15520342.html'], 0),
+        ('荣耀法兰西', ['http://www.shumil.com/rongyaofalanxi/16454984.html'], 0)
     ],
 
     [
-        ('八一物流誉满全球', ['http://www.52dsm.com/chapter/10467/6045884.html'], 0)
+        ('八一物流誉满全球', ['http://www.52dsm.com/chapter/10467/6045884.html'], 0),
+        ('永不解密', ['http://www.52dsm.com/chapter/6712/3284704.html'], 0)
     ],
 
     [
-        ('娱乐春秋', ['http://www.daomengren.com/26_26400/13373898.html'], 0)
+        ('娱乐春秋', ['http://www.daomengren.com/26_26400/13373898.html'], 0),
+        ('仙官', ['http://www.daomengren.com/21_21005/8816244.html'], 0),
+    ],
+
+    [
+        ('荣耀法兰西', ['https://www.dingdiann.com/ddk145414/7424660.html'], 0)
+    ],
+
+    [
+        ('荣耀法兰西', ['http://www.econtentware.com/126958/zhangjie30290266.shtml'], 0)
+    ],
+
+    [
+        ('挽明', ['https://www.fpzw.com/xiaoshuo/108/108517/25243810.html'], 0)
+    ],
+
+    [
+        ('战略级天使', ['https://novel.zhwenpg.com/r.php?id=312051'], 0)
+    ],
+
+    [
+        ('旧日剑主', ['https://www.youdubook.com/readchapter/19294.html'], 0)
     ],
 ]
 
 # site, book
-idx = (7, 0)
+idx = (-1, 0)
 
 # 保存路径
 bookName = bookInfo[idx[0]][idx[1]][0]
@@ -141,16 +205,21 @@ class NovelSpider(scrapy.Spider):
         # self.cookies = self.transCookie('ctime=2018%2D01%2D13+05%3A41%3A20; click=A18505A; ASPSESSIONIDQAQCSCQT=PKMFHINDHMJHPJHHKMOHAACC; Hm_lvt_5d1243e3fcbf5e856c177a54c2ef34b3=1515750066; Hm_lpvt_5d1243e3fcbf5e856c177a54c2ef34b3=1515750096')
 
     def parse(self, response):
-        logger.info('parse' + bookName)
+        logger.info('parse ' + bookName)
 
         selector = scrapy.Selector(response)
+
+
 
         next_href = selector.xpath(xpathMap['next']).extract_first()
         if next_href is None:
             logger.info("end of crawl")
             return
+        # logger.info('next_href ' + next_href)
 
         title = selector.xpath(xpathMap['title']).extract_first()
+        # logger.info('title ' + title)
+
         content = ''
         for para in selector.xpath(xpathMap['content']).extract():
             para = para.strip()
@@ -166,7 +235,6 @@ class NovelSpider(scrapy.Spider):
 
         # save chapter
         self.save_chapter('\n\n' + title + '\n' + next_href + '\n\n\n', content)
-        logger.info('title: ' + title)
         # logger.info('content: ' + content)
 
         next_href = response.urljoin(next_href)
@@ -189,13 +257,15 @@ class NovelSpider(scrapy.Spider):
         #            'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
         #            'Referer': response.url}
 
+        headers = {'Referer': response.url}
+
         yield Request(next_href, callback=self.parse, dont_filter=True)
 
         # 直接使用相对路径next_href即可，等同于 Request
         # yield response.follow(next_href, callback=self.parse)
 
     def save_chapter(self, title, content):
-        bookPath = r'D:\Download' + '\\' + bookName + str(int(self.count / chapterPerFile)) + ".txt"
+        bookPath = r'E:\Download' + '\\' + bookName + str(int(self.count / chapterPerFile)) + ".txt"
         with open(bookPath, 'ab') as dest:
             dest.write(title.encode(encoding="utf-8"))
             dest.write(content.encode(encoding="utf-8"))
