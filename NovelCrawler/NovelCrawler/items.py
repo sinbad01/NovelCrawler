@@ -8,9 +8,8 @@
 import scrapy
 
 
-class NovelcrawlerItem(scrapy.Item):
-    # define the fields for your item here like
-    path = scrapy.Field()
+class ChapterItem(scrapy.Item):
     title = scrapy.Field()
     content = scrapy.Field()
+    next = scrapy.Field()
     pass
