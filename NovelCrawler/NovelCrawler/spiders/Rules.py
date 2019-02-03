@@ -77,18 +77,7 @@ urls = [
         ],
     ),
 
-    (
-        ["www.xinshuzx.cn"],
 
-        {'title': '/html/body/div[4]/div/h2/text()',
-         'content': '//div[@class="box_box"]//text()',
-         "next": '//a[@id="keyright"]//@href'},
-
-        [
-            ('反正我是超能力者', ['http://www.xinshuzx.cn/fanzhengwoshichaonenlizhe/10982.html'], 1),
-            ('我的大宝剑', ['http://www.xinshuzx.cn/wodedabaojian/10267.html'], 0)
-        ],
-    ),
 
     (
         ["www.shumil.com"],
@@ -103,18 +92,6 @@ urls = [
         ],
     ),
 
-    (
-        ["www.52dsm.com"],
-
-        {'title': '//*[@id="center"]/div[1]/h1/text()',
-         'content': '//*[@id="content"]/p/text()',
-         "next": '//*[@id="center"]/div[2]/a[5]//@href'},
-
-        [
-            ('八一物流誉满全球', ['http://www.52dsm.com/chapter/10467/6045884.html'], 0),
-            ('永不解密', ['http://www.52dsm.com/chapter/6712/3284704.html'], 0)
-        ],
-    ),
     (
         ["www.daomengren.com"],
 
@@ -132,10 +109,9 @@ urls = [
     (
         ["www.fpzw.com"],
 
-        {'title': '//div[@id="content"]/h2/text()',
+        {'title': '//h2/text()',
          'content': '//p[@class="Text"]/text()',
-         "next": '//div[@class="thumb"]/a[4]//@href'},
-
+         "next": '//div[@class="thumb"]/a[5]//@href'},
         [
             ('挽明', ['https://www.fpzw.com/xiaoshuo/108/108517/25243810.html'], 0)
         ],

@@ -7,7 +7,7 @@ from . import Rules
 from NovelCrawler.items import ChapterItem
 
 # site, book
-indexes = (-1, 0)
+indexes = (-3, 0)
 
 # 保存路径
 bookName = Rules.getBookInfo(indexes)[0]
@@ -30,9 +30,9 @@ class NovelSpider(scrapy.Spider):
         self.count = chapterCount
         self.limit = chapterCount - 1
 
-    def start_requests(self):
-        for url in self.start_urls:
-            yield SplashRequest(url, self.parse, endpoint='render.html', args=splash_args)
+    # def start_requests(self):
+    #     for url in self.start_urls:
+    #         yield SplashRequest(url, self.parse, endpoint='render.html', args=splash_args)
 
     def parse(self, response):
         self.logger.info('parse ' + bookName)
@@ -52,11 +52,11 @@ class NovelSpider(scrapy.Spider):
         content = ''
         for para in selector.xpath(xpathMap['content']).extract():
             para = para.strip()
-            self.logger.debug('para: ' + para)
+            # self.logger.debug('para: ' + para)
 
             if len(para) > 0:
                 content += para + "\n\n"
-            self.logger.debug('para: ' + para)
+            # self.logger.debug('para: ' + para)
             # print(str.encode(para))
         item["content"] = content
 
@@ -73,8 +73,8 @@ class NovelSpider(scrapy.Spider):
             return
         self.count += 1
 
-        # yield Request(next_href, callback=self.parse, dont_filter=True)
-        yield SplashRequest(next_href, callback=self.parse, endpoint='render.html', args=splash_args)
+        yield Request(next_href, callback=self.parse, dont_filter=True)
+        # yield SplashRequest(next_href, callback=self.parse, endpoint='render.html', args=splash_args)
 
         # 直接使用相对路径next_href即可，等同于 Request
         # yield response.follow(next_href, callback=self.parse)
