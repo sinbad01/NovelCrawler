@@ -3,18 +3,18 @@
 
 
 def getDomain(idxs):
-    return siteInfo[idxs[0]][0]
+    return urls[idxs[0]][0]
 
 
 def getXpathMap(idxs):
-    return siteInfo[idxs[0]][1]
+    return urls[idxs[0]][1]
 
 
 def getBookInfo(idxs):
-    return siteInfo[idxs[0]][2][idxs[1]]
+    return urls[idxs[0]][2][idxs[1]]
 
 
-siteInfo = [
+urls = [
     (
         ["www.miaobige.com"],
 
@@ -157,11 +157,11 @@ siteInfo = [
     (
         ["www.youdubook.com"],
         {'title': '//*[@id="ChapterMain"]/div[2]/text()',
-         'content': '//*[@id="ChapterContent"]//p',
+         'content': '//*[@id="ChapterContent"]//p/text()',
          "next": '//*[@id="ChapterMain"]/div[6]/ul/li[3]/a/@href'},
 
         [
-            ('旧日剑主', ['https://www.youdubook.com/readchapter/19294.html'], 0)
+            ('旧日剑主', ['https://www.youdubook.com/readchapter/19486.html'], 0)
         ],
     ),
 ]
