@@ -114,4 +114,4 @@ LOG_FORMAT = "%(asctime)s [%(name)s] %(levelname)s: %(message)s"
 LOG_DATEFORMAT = "%Y-%m-%d %H:%M:%S"
 
 
-SPLASH_URL = 'http://192.168.99.100:8050'
+# SPLASH_URL = 'http://192.168.99.100:8050'

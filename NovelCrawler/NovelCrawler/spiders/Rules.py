@@ -15,6 +15,7 @@ def getBookInfo(idxs):
 
 
 urls = [
+# 0
     (
         ["www.miaobige.com"],
 
@@ -28,7 +29,7 @@ urls = [
             ('大明狂士', ['https://www.miaobige.com/read/12440/5801281.html'], 0),
         ],
     ),
-
+# 1
     (
         ["www.sjtxt.com"],
 
@@ -43,9 +44,9 @@ urls = [
             ('天国游戏 ', ['https://www.sjtxt.la/book/38211/3119606.html'], 0),
         ],
     ),
-
+#2
     (
-        ["www.88dushu.com"],
+        ["www.x88dushu.com"],
 
         {'title': '/html/body/div[5]/h1/text()',
          'content': '/html/body/div[5]/div[4]/text()',
@@ -62,10 +63,12 @@ urls = [
             ('护花小神农', ['https://www.88dushu.com/xiaoshuo/80/80103/22558520.html'], 0),
             ('超级修理大师', ['https://www.88dushu.com/xiaoshuo/66/66961/18138426.html'], 0),
             ('被虫娘推倒', ['https://www.88dus.com/xiaoshuo/98/98336/33875260.html'], 0),
+            ('华娱凶猛', ['https://www.x88dushu.com/xiaoshuo/109/109775/42782336.html'], 0),
+            ('制霸好莱坞', ['https://www.x88dushu.com/xiaoshuo/63/63727/17132015.html'], 0),
         ],
     ),
-
-    (
+# 3    
+	(
         ["www.quanben.io"],
 
         {'title': '/html/body/div[3]/h1/text()',
@@ -78,7 +81,7 @@ urls = [
     ),
 
 
-
+# 4
     (
         ["www.shumil.com"],
 
@@ -88,10 +91,11 @@ urls = [
 
         [
             ('绿茵人生', ['http://www.shumil.com/lvyinrensheng/15520342.html'], 0),
-            ('荣耀法兰西', ['http://www.shumil.com/rongyaofalanxi/16454984.html'], 0)
+            ('荣耀法兰西', ['http://www.shumil.com/rongyaofalanxi/16454984.html'], 0),
+            ('华娱凶猛', ['http://www.shumil.com/huayuxiongmeng/21077139.html'], 0)
         ],
     ),
-
+# 5
     (
         ["www.daomengren.com"],
 
@@ -104,7 +108,7 @@ urls = [
             ('仙官', ['http://www.daomengren.com/21_21005/8816244.html'], 0),
         ],
     ),
-
+# 6
     # 2k中文
     (
         ["www.fpzw.com"],
@@ -116,7 +120,7 @@ urls = [
             ('挽明', ['https://www.fpzw.com/xiaoshuo/108/108517/25243810.html'], 0)
         ],
     ),
-
+# 7
     # 天眼看小说
     (
         ["novel.zhwenpg.com"],
@@ -126,10 +130,11 @@ urls = [
          "next": '//table[4]/tr/td[3]/a/@href'},
 
         [
-            ('战略级天使', ['https://novel.zhwenpg.com/r.php?id=312051'], 0)
+            ('战略级天使', ['https://novel.zhwenpg.com/r.php?id=402898'], 1)
         ],
     ),
-    # 有毒小说
+    # 8
+    # 有毒小说 需要
     (
         ["www.youdubook.com"],
         {'title': '//*[@id="ChapterMain"]/div[2]/text()',
@@ -137,7 +142,52 @@ urls = [
          "next": '//*[@id="ChapterMain"]/div[6]/ul/li[3]/a/@href'},
 
         [
-            ('旧日剑主', ['https://www.youdubook.com/readchapter/19486.html'], 0)
+            ('旧日剑主', ['https://www.youdubook.com/readchapter/19486.html'], 0),
+            ('灵吸怪备忘录', ['https://www.youdubook.com/book_detail/924.html'], 0)
+        ],
+    ),
+
+   
+# 9
+    # 追书帮
+    (
+
+        ["www.zhuishubang.com"],
+        {'title': '//h2/text()',
+         'content': '//*[@class="articleCon"]/p/text()',
+         "next": '//*[@class="page"]/a[3]/@href'},
+
+        [
+            ('大航海时代的德鲁伊', ['https://www.zhuishubang.com/24223/8698189.html'], 0),
+            ('大航海时代的德鲁伊', ['https://www.zhuishubang.com/50754/18113338.html'], 0),
+        ],
+    ),
+
+# 10
+    # 花香居
+    (
+
+        ["www.huaxiangju.com"],
+        {
+        'title': '//h2/text()',
+         'content': '//*[@class="articleCon"]/p/text()',
+         "next": '//*[@class="page"]/a[3]/@href'},
+
+        [
+            ('邪恶组织注意事项', ['https://www.huaxiangju.com/2428/883581.html'], 0),
+        ],
+    ),
+# 11
+    # 有意思书院
+    (
+
+        ["www.heihei66.com"],
+        {'title': '//p[@class="ctitle"]/text()',
+         'content': '//div[@id="content"]/text()',
+         "next": '//div[@class="bottomlink tc"]/a[7]/@href'},
+
+        [
+            ('我的大宝剑', ['https://www.heihei66.com/79/79542/28200871.html'], 0),
         ],
     ),
 ]

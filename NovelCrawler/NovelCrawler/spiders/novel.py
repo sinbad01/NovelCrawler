@@ -7,7 +7,7 @@ from . import Rules
 from NovelCrawler.items import ChapterItem
 
 # site, book
-indexes = (-3, 0)
+indexes = (2, -1)
 
 # 保存路径
 bookName = Rules.getBookInfo(indexes)[0]
@@ -47,7 +47,7 @@ class NovelSpider(scrapy.Spider):
         self.logger.debug('next_href ' + item["next"])
 
         item["title"] = selector.xpath(xpathMap['title']).extract_first()
-        self.logger.debug('title ' + item["next"])
+        self.logger.info('title ' + item["title"])
 
         content = ''
         for para in selector.xpath(xpathMap['content']).extract():
