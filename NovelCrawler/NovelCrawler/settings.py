@@ -54,20 +54,20 @@ TELNETCONSOLE_ENABLED = True
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-   # 'NovelCrawler.middlewares.NovelcrawlerDownloaderMiddleware': 543,
+#DOWNLOADER_MIDDLEWARES = {
+#   'NovelCrawler.middlewares.NovelcrawlerDownloaderMiddleware': 543,
 
-    'scrapy_splash.SplashCookiesMiddleware': 723,
-    'scrapy_splash.SplashMiddleware': 725,
-    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
-}
+    # 'scrapy_splash.SplashCookiesMiddleware': 723,
+    # 'scrapy_splash.SplashMiddleware': 725,
+    # 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+#}
 
-SPIDER_MIDDLEWARES = {
-    'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
-}
+# SPIDER_MIDDLEWARES = {
+#     'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
+# }
 
-DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
-HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
+# DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
+# HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -114,4 +114,4 @@ LOG_FORMAT = "%(asctime)s [%(name)s] %(levelname)s: %(message)s"
 LOG_DATEFORMAT = "%Y-%m-%d %H:%M:%S"
 
 
-# SPLASH_URL = 'http://192.168.99.100:8050'
+# SPLASH_URL = 'http://10.2.111.223:8050'

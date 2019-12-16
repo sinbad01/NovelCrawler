@@ -15,7 +15,7 @@ def getBookInfo(idxs):
 
 
 urls = [
-# 0
+    # 0
     (
         ["www.miaobige.com"],
 
@@ -29,7 +29,7 @@ urls = [
             ('大明狂士', ['https://www.miaobige.com/read/12440/5801281.html'], 0),
         ],
     ),
-# 1
+    # 1
     (
         ["www.sjtxt.com"],
 
@@ -44,7 +44,7 @@ urls = [
             ('天国游戏 ', ['https://www.sjtxt.la/book/38211/3119606.html'], 0),
         ],
     ),
-#2
+    # 2
     (
         ["www.x88dushu.com"],
 
@@ -65,10 +65,11 @@ urls = [
             ('被虫娘推倒', ['https://www.88dus.com/xiaoshuo/98/98336/33875260.html'], 0),
             ('华娱凶猛', ['https://www.x88dushu.com/xiaoshuo/109/109775/42782336.html'], 0),
             ('制霸好莱坞', ['https://www.x88dushu.com/xiaoshuo/63/63727/17132015.html'], 0),
+            ('重生之大英雄', ['https://www.x88dushu.com/xiaoshuo/43/43565/11506170.html'], 0),
         ],
     ),
-# 3    
-	(
+    # 3
+    (
         ["www.quanben.io"],
 
         {'title': '/html/body/div[3]/h1/text()',
@@ -80,8 +81,7 @@ urls = [
         ],
     ),
 
-
-# 4
+    # 4
     (
         ["www.shumil.com"],
 
@@ -95,7 +95,7 @@ urls = [
             ('华娱凶猛', ['http://www.shumil.com/huayuxiongmeng/21077139.html'], 0)
         ],
     ),
-# 5
+    # 5
     (
         ["www.daomengren.com"],
 
@@ -106,9 +106,10 @@ urls = [
         [
             ('娱乐春秋', ['http://www.daomengren.com/26_26400/13373898.html'], 0),
             ('仙官', ['http://www.daomengren.com/21_21005/8816244.html'], 0),
+            ('影视世界当神探', ['http://www.daomengren.com/26_26822/14058096.html'], 0),
         ],
     ),
-# 6
+    # 6
     # 2k中文
     (
         ["www.fpzw.com"],
@@ -120,7 +121,7 @@ urls = [
             ('挽明', ['https://www.fpzw.com/xiaoshuo/108/108517/25243810.html'], 0)
         ],
     ),
-# 7
+    # 7
     # 天眼看小说
     (
         ["novel.zhwenpg.com"],
@@ -130,7 +131,8 @@ urls = [
          "next": '//table[4]/tr/td[3]/a/@href'},
 
         [
-            ('战略级天使', ['https://novel.zhwenpg.com/r.php?id=402898'], 1)
+            # 155
+            ('战略级天使', ['https://novel.zhwenpg.com/r.php?id=462622'], 1)
         ],
     ),
     # 8
@@ -147,8 +149,7 @@ urls = [
         ],
     ),
 
-   
-# 9
+    # 9
     # 追书帮
     (
 
@@ -163,21 +164,21 @@ urls = [
         ],
     ),
 
-# 10
+    # 10
     # 花香居
     (
 
         ["www.huaxiangju.com"],
         {
-        'title': '//h2/text()',
-         'content': '//*[@class="articleCon"]/p/text()',
-         "next": '//*[@class="page"]/a[3]/@href'},
+            'title': '//h2/text()',
+            'content': '//*[@class="articleCon"]/p/text()',
+            "next": '//*[@class="page"]/a[3]/@href'},
 
         [
             ('邪恶组织注意事项', ['https://www.huaxiangju.com/2428/883581.html'], 0),
         ],
     ),
-# 11
+    # 11
     # 有意思书院
     (
 
@@ -190,4 +191,122 @@ urls = [
             ('我的大宝剑', ['https://www.heihei66.com/79/79542/28200871.html'], 0),
         ],
     ),
+    # 12
+    # 笔趣阁
+    (
+
+        ["www.bqg5200.com"],
+        {'title': '//h1/text()',
+         'content': '//div[@id="content"]/text()',
+         "next": '//*[@id="container"]/div[4]/div[2]/a[5]/@href'},
+
+        [
+            ('我的知识能卖钱', ['https://www.bqg5200.com/xiaoshuo/35/35007/15232653.html'], 0),
+            ('走进修仙', ['https://www.bqg5200.com/xiaoshuo/3/3385/1922479.html'], 0),
+        ],
+    ),
+
+    # 13
+    # AB小说网
+    (
+
+        ["http://www.abx.la"],
+        {'title': '//*[@id="amain"]/dl/dt/text()',
+         'content': '//*[@id="contents"]/text()',
+         "next": '//*[@id="amain"]/dl/dd/div[5]/a[4]/@href'},
+
+        [
+            ('妄想西游记', ['http://www.abx.la/read/55630/9774327.html'], 0),
+        ],
+    ),
+
+    # 14
+    # 笔趣阁2
+    (
+
+        ["www.b5200.net"],
+        {'title': '//h1/text()',
+         'content': '//div[@id="content"]/p/text()',
+         "next": '//div[@class="bottem1"]/a[4]/@href'},
+
+        [
+            ('这灵气要命', ['http://www.b5200.net/115_115028/163939785.html'], 0),
+        ],
+    ),
+
+    # 15
+    # 67书吧
+    (
+
+        ["www.b5200.net"],
+        {'title': '//h1/text()',
+         'content': '//div[@id="content"]/text()',
+         "next": '//*[@id="read_page"]/div[2]/div[7]/p/span[4]/a/@href'},
+
+        [
+            ('重生之出人头地', ['https://www.67shu.com/54/54864/15416743.html'], 0),
+        ],
+    ),
+
+    # 16
+    # 饭饭小说
+    (
+
+        ["www.ffxs.me"],
+        {'title': '//h1/text()',
+         'content': '//div[@class="content"]/text()',
+         "next": '/html/body/div[5]/div[2]/a[3]/@href'},
+
+        [
+            ('妖僧西行记', ['https://www.ffxs.me/book/8-6106-2.html'], 0),
+        ],
+    ),
+
+    # 17
+    # 星空小说网
+    (
+        ["www.aixs.org"],
+        {'title': '//h2/text()',
+         'content': '//div[@id="txt"]/dd/p/text()',
+         "next": '//div[@class="bottom-nav"]/a[3]/@href'},
+        [
+            ('王国的建立', ['https://www.aixs.org/xs/125/125566/255577.html'], 0),
+        ],
+    ),
+
+    # 18
+    # 凤舞
+    (
+        ["www.qiuwu.net"],
+        {'title': '//h1/text()',
+         'content': '//div[@id="content"]/text()',
+         "next": '//td[@class="link_14"]/a[3]/@href'},
+        [
+            ('旧日剑主', ['https://www.qiuwu.net/html/429/429564/131832401.shtml'], 0),
+        ],
+
+# \(\(([\u4e00-\u9fa5]).{0,6}\).{0,6}\)  $1 ((荡dàng)dàng)
+# \(([\u4e00-\u9fa5]).{0,6}\) $1 (身shēn)
+    ),
+
+    # 19
+    # 完本神站，有乱码，疑似OCR
+    (
+        ["www.wanbentxt.net"],
+        {'title': '//h2/text()',
+         'content': '//div[@class="readerCon"]/p/text()',
+         "next": '//div[@class="readPage"]/a[3]/@href'},
+        [
+
+            ('马恩的日常', ['https://www.wanbentxt.com/15019/10621455.html'], 0),
+            ('文明-超越两界', ['https://www.wanbentxt.com/9668/6411181.html'], 0),
+            ('旧日剑主', ['https://www.wanbentxt.com/19482/13377195.html'], 0),
+            ('你的帝国', ['https://www.wanbentxt.com/19486/12523023.html'], 0),
+            ('蜘蛛巢城的魔人', ['https://www.wanbentxt.com/21851/13847346.html'], 0),
+            ('维止王朝的剑客信条', ['https://www.wanbentxt.com/21711/13761747.html'], 0),
+            ('大航海时代的德鲁伊', ['https://www.wanbentxt.com/21850/13937639.html'], 0),
+        ],
+
+    ),
+
 ]

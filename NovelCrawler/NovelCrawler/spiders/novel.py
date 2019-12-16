@@ -1,23 +1,31 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy import Request
-from scrapy_splash import SplashRequest
+# from scrapy_splash import SplashRequest
 
 from . import Rules
+from . import AfterProcess
 from NovelCrawler.items import ChapterItem
 
 # site, book
-indexes = (2, -1)
+indexes = (-1, 4)
 
 # 保存路径
 bookName = Rules.getBookInfo(indexes)[0]
+book_path = r'E:\Download' + '\\' + bookName + ".txt"
 xpathMap = Rules.getXpathMap(indexes)
-
 # 避免文件过大，拆分为多个文件
 chapterCount = Rules.getBookInfo(indexes)[2]
-chapterPerFile = 1000
 
-splash_args = { 'wait': 1.5, }
+splash_args = {'wait': 1.5, }
+
+
+def save_chapter(item):
+    with open(book_path, 'ab') as dest:
+        title = '\n\n' + item["title"] + '\n' + item["next"] + '\n\n\n'
+        dest.write(title.encode(encoding="utf-8"))
+        dest.write(item["content"].encode(encoding="utf-8"))
+
 
 class NovelSpider(scrapy.Spider):
     name = 'novel'
@@ -30,10 +38,6 @@ class NovelSpider(scrapy.Spider):
         self.count = chapterCount
         self.limit = chapterCount - 1
 
-    # def start_requests(self):
-    #     for url in self.start_urls:
-    #         yield SplashRequest(url, self.parse, endpoint='render.html', args=splash_args)
-
     def parse(self, response):
         self.logger.info('parse ' + bookName)
         item = ChapterItem()
@@ -44,24 +48,24 @@ class NovelSpider(scrapy.Spider):
         if item["next"] is None:
             self.logger.info("end of crawl")
             return
-        self.logger.debug('next_href ' + item["next"])
 
-        item["title"] = selector.xpath(xpathMap['title']).extract_first()
+        self.logger.debug('next_href ' + item["next"])
+        item["title"] = selector.xpath(xpathMap['title']).extract_first().strip()
         self.logger.info('title ' + item["title"])
 
         content = ''
         for para in selector.xpath(xpathMap['content']).extract():
             para = para.strip()
-            # self.logger.debug('para: ' + para)
+            self.logger.debug('para: ' + para)
 
             if len(para) > 0:
                 content += para + "\n\n"
-            # self.logger.debug('para: ' + para)
+            self.logger.debug('para: ' + para)
             # print(str.encode(para))
         item["content"] = content
 
         # save chapter
-        self.save_chapter(item)
+        save_chapter(item)
         self.logger.debug('content: ' + content)
 
         next_href = response.urljoin(item["next"])
@@ -69,6 +73,7 @@ class NovelSpider(scrapy.Spider):
         self.logger.debug('response.url: ' + response.url)
 
         if self.count == self.limit:
+            AfterProcess.regxProcess(book_path, indexes[0])
             self.logger.info("exit")
             return
         self.count += 1
@@ -79,9 +84,3 @@ class NovelSpider(scrapy.Spider):
         # 直接使用相对路径next_href即可，等同于 Request
         # yield response.follow(next_href, callback=self.parse)
 
-    def save_chapter(self, item):
-        book_path = r'E:\Download' + '\\' + bookName + str(int(self.count / chapterPerFile)) + ".txt"
-        title = '\n\n' + item["title"] + '\n' + item["next"] + '\n\n\n'
-        with open(book_path, 'ab') as dest:
-            dest.write(title.encode(encoding="utf-8"))
-            dest.write(item["content"].encode(encoding="utf-8"))
