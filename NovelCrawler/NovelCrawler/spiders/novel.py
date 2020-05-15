@@ -15,9 +15,8 @@ class NovelSpider(scrapy.Spider):
     name = 'novel'
 
     # site, book
-    book_idx = Rules.IndexClass('www.wanbentxt.com', 0)
-    allowed_domains = 'www.wanbentxt.com'
-        # Rules.getDomain(book_idx)
+    book_idx = Rules.IndexClass('www.wanbentxt.com', 8)
+    allowed_domains = Rules.getDomain(book_idx)
 
 
     def __init__(self):
@@ -28,7 +27,16 @@ class NovelSpider(scrapy.Spider):
         self.save = dict()
 
     def start_requests(self):
-        for book in Rules.getAllBookInfo(self.book_idx):
+        if self.book_idx.book == -1:
+            for book in Rules.getAllBookInfo(self.book_idx):
+                self.bookName = book[0]
+                self.book_path = r'E:\Download' + '\\' + self.bookName + ".txt"
+                url = book[1]
+                self.save[self.book_path] = url
+                # print(self.bookName, url)
+                yield scrapy.Request(url=url, callback=self.parse)
+        else:
+            book = Rules.getBookInfo(self.book_idx)
             self.bookName = book[0]
             self.book_path = r'E:\Download' + '\\' + self.bookName + ".txt"
             url = book[1]

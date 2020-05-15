@@ -79,6 +79,8 @@ urls = {
                 ('灵吸怪备忘录', 'https://www.wanbentxt.com/19485/14234523.html', 0),
                 ('战略级天使', 'https://www.wanbentxt.com/15287/13761884.html', 0),
 
+                ('变异的万法之书', 'https://www.wanbentxt.com/21856/13848186.html', 0),
+
                 # ('[综武侠]圣僧', 'https://www.wanbentxt.com/93966676/17490381.html', 0),
                 # ('大航海时代的德鲁伊', 'https://www.wanbentxt.com/21850/13846689.html', 0),
             ],
@@ -100,13 +102,10 @@ urls = {
 
 
 if __name__ == '__main__':
-    # book_idx = IndexClass('www.wanbentxt.net', 0)
-    # for book in getAllBookInfo(book_idx):
-    #     print(book)
-    #     bookname = book[0]
-    #     url = book[1]
-    #     print(bookname, url)
+    book_idx = IndexClass('www.wanbentxt.com', 8)
+    book = getBookInfo(book_idx)
+    print(book)
+    bookname = book[0]
+    url = book[1]
+    print(bookname, url)
 
-    student = {'小萌': '1001', '小智': '1002', '小强': '1003', '小明': '1004'}
-    x = [k for k, v in student.items() if v == '1003']
-    print(x)
