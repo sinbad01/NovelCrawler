@@ -11,7 +11,7 @@ __author__ = 'tongzhengyu'
 
 import re
 
-def regxProcess(file, siteIdx):
+def regxProcess(file, site):
     # if siteIdx != 19:
     #     return
 
@@ -72,5 +72,5 @@ def regxProcess(file, siteIdx):
 
 if __name__ == '__main__':
     file = r'E:\Download\[综武侠]圣僧.txt'
-    siteIdx = 0
-    regxProcess(file, siteIdx)
+    site = 'www.wanbentxt.net'
+    regxProcess(file, site)

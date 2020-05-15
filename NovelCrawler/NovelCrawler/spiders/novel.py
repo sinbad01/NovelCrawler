@@ -1,62 +1,61 @@
 # -*- coding: utf-8 -*-
+import sys
+
 import scrapy
 from scrapy import Request
-# from scrapy_splash import SplashRequest
-
 from . import Rules
 from . import AfterProcess
-from NovelCrawler.items import ChapterItem
-
-# site, book
-indexes = (0, 0)
-
-# 保存路径
-bookName = Rules.getBookInfo(indexes)[0]
-book_path = r'E:\Download' + '\\' + bookName + ".txt"
-xpathMap = Rules.getXpathMap(indexes)
-# 避免文件过大，拆分为多个文件
-chapterCount = Rules.getBookInfo(indexes)[2]
-
-splash_args = {'wait': 1.5, }
+from .. import items
 
 
-def save_chapter(item):
-    with open(book_path, 'ab') as dest:
-        title = ''
-        # \n\n' + item["title"] + '\n' + item["next"] + '\n\n\n'
-        dest.write(title.encode(encoding="utf-8"))
-        dest.write(item["content"].encode(encoding="utf-8"))
+
 
 
 class NovelSpider(scrapy.Spider):
     name = 'novel'
-    allowed_domains = Rules.getDomain(indexes)
-    start_urls = Rules.getBookInfo(indexes)[1]
+
+    # site, book
+    book_idx = Rules.IndexClass('www.wanbentxt.com', 0)
+    allowed_domains = 'www.wanbentxt.com'
+        # Rules.getDomain(book_idx)
+
 
     def __init__(self):
         super(NovelSpider, self).__init__()
-        # 用于测试时，及时停止
-        self.count = chapterCount
-        self.limit = chapterCount - 1
+        self.bookName = ''
+        self.book_path = ''
+        self.xpathMap = Rules.getXpathMap(self.book_idx)
+        self.save = dict()
+
+    def start_requests(self):
+        for book in Rules.getAllBookInfo(self.book_idx):
+            self.bookName = book[0]
+            self.book_path = r'E:\Download' + '\\' + self.bookName + ".txt"
+            url = book[1]
+            self.save[self.book_path] = url
+            # print(self.bookName, url)
+            yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        self.logger.info('parse ' + bookName)
-        item = ChapterItem()
+        self.logger.info('parse ' + self.bookName)
+        item = items.ChapterItem()
+
+        x = [k for k, v in self.save.items() if v == response.url]
+        path = x[0]
 
         selector = scrapy.Selector(response)
-
-        item["next"] = selector.xpath(xpathMap['next']).extract_first()
+        item["next"] = selector.xpath(self.xpathMap['next']).extract_first()
         if item["next"] is None:
             self.logger.info("end of crawl")
-            AfterProcess.regxProcess(book_path, indexes[0])
+            AfterProcess.regxProcess(path, self.book_idx.site)
             return
 
         self.logger.debug('next_href ' + item["next"])
-        item["title"] = selector.xpath(xpathMap['title']).extract_first().strip()
+        item["title"] = selector.xpath(self.xpathMap['title']).extract_first().strip()
         self.logger.info('title ' + item["title"])
 
         content = ''
-        for para in selector.xpath(xpathMap['content']).extract():
+        for para in selector.xpath(self.xpathMap['content']).extract():
             para = para.strip()
             self.logger.debug('para: ' + para)
 
@@ -67,22 +66,24 @@ class NovelSpider(scrapy.Spider):
         item["content"] = content
 
         # save chapter
-        save_chapter(item)
+
+        self.save_chapter(item, path)
         self.logger.debug('content: ' + content)
 
         next_href = response.urljoin(item["next"])
         self.logger.info('next_href: ' + next_href)
         self.logger.debug('response.url: ' + response.url)
-
-        if self.count == self.limit:
-            AfterProcess.regxProcess(book_path, indexes[0])
-            self.logger.info("exit")
-            return
-        self.count += 1
+        self.save[path] = next_href
 
         yield Request(next_href, callback=self.parse, dont_filter=True)
         # yield SplashRequest(next_href, callback=self.parse, endpoint='render.html', args=splash_args)
 
         # 直接使用相对路径next_href即可，等同于 Request
         # yield response.follow(next_href, callback=self.parse)
+
+    def save_chapter(self, item, path):
+        with open(path, 'ab') as dest:
+            title = '\n\n' + item["title"] + '\n\n\n'
+            dest.write(title.encode(encoding="utf-8"))
+            dest.write(item["content"].encode(encoding="utf-8"))
 
