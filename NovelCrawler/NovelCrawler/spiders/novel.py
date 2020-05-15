@@ -8,7 +8,7 @@ from . import AfterProcess
 from NovelCrawler.items import ChapterItem
 
 # site, book
-indexes = (-1, 4)
+indexes = (0, 0)
 
 # 保存路径
 bookName = Rules.getBookInfo(indexes)[0]
@@ -22,7 +22,8 @@ splash_args = {'wait': 1.5, }
 
 def save_chapter(item):
     with open(book_path, 'ab') as dest:
-        title = '\n\n' + item["title"] + '\n' + item["next"] + '\n\n\n'
+        title = ''
+        # \n\n' + item["title"] + '\n' + item["next"] + '\n\n\n'
         dest.write(title.encode(encoding="utf-8"))
         dest.write(item["content"].encode(encoding="utf-8"))
 
@@ -47,6 +48,7 @@ class NovelSpider(scrapy.Spider):
         item["next"] = selector.xpath(xpathMap['next']).extract_first()
         if item["next"] is None:
             self.logger.info("end of crawl")
+            AfterProcess.regxProcess(book_path, indexes[0])
             return
 
         self.logger.debug('next_href ' + item["next"])

@@ -17,16 +17,14 @@ def getBookInfo(idxs):
 urls = [
     # 0
     (
-        ["www.miaobige.com"],
+        ["www.imiaobige.com"],
 
-        {'title': '//*[@id="center"]/div[1]/h1/text()',
-         'content': '//*[@id="content"]//p/text()',
-         "next": '//*[@id="center"]/div[2]/a[5]//@href'},
+        {'title': '//div[@class="title"]/h1/text()',
+         'content': '//div[@id="content"]//p/text()',
+         "next": '//div[@class="jump"]/a[4]//@href'},
 
         [
-            # 第三卷 帝国之路 第111章 广南国的使者
-            ('挽明', ['https://www.miaobige.com/read/13395/11940565.html'], 0),
-            ('大明狂士', ['https://www.miaobige.com/read/12440/5801281.html'], 0),
+            ('[综武侠]圣僧', ['https://www.imiaobige.com/read/41447/441285.html'], 0),
         ],
     ),
     # 1
@@ -238,13 +236,12 @@ urls = [
     # 67书吧
     (
 
-        ["www.b5200.net"],
+        ["www.67shu.net"],
         {'title': '//h1/text()',
          'content': '//div[@id="content"]/text()',
-         "next": '//*[@id="read_page"]/div[2]/div[7]/p/span[4]/a/@href'},
-
+         "next": '//div[@class="page_next_preview"]/p/span[4]/a/@href'},
         [
-            ('重生之出人头地', ['https://www.67shu.com/54/54864/15416743.html'], 0),
+            ('飞越三十年', ['https://www.67shu.net/88/88806/33359862.html'], 0),
         ],
     ),
 
@@ -298,15 +295,71 @@ urls = [
          "next": '//div[@class="readPage"]/a[3]/@href'},
         [
 
-            ('马恩的日常', ['https://www.wanbentxt.com/15019/10621455.html'], 0),
-            ('文明-超越两界', ['https://www.wanbentxt.com/9668/6411181.html'], 0),
-            ('旧日剑主', ['https://www.wanbentxt.com/19482/13377195.html'], 0),
-            ('你的帝国', ['https://www.wanbentxt.com/19486/12523023.html'], 0),
-            ('蜘蛛巢城的魔人', ['https://www.wanbentxt.com/21851/13847346.html'], 0),
-            ('维止王朝的剑客信条', ['https://www.wanbentxt.com/21711/13761747.html'], 0),
-            ('大航海时代的德鲁伊', ['https://www.wanbentxt.com/21850/13937639.html'], 0),
+            ('马恩的日常xx', ['https://www.wanbentxt.com/15019/10621455.html'], 0),
+            ('文明-超越两界xx', ['https://www.wanbentxt.com/9668/6411181.html'], 0),
+
+            # 505
+            ('火热的年代', ['https://www.wanbentxt.com/21849/18576939.html'], 0),
+            # 932
+            ('旧日剑主', ['https://www.wanbentxt.com/19482/17784451.html'], 0),
+            # 60.朕又不是巴列奥略家的种
+            ('你的帝国', ['https://www.wanbentxt.com/19486/16380134.html'], 0),
+            # 444
+            ('蜘蛛巢城的魔人', ['https://www.wanbentxt.com/21851/17823224.html'], 0),
+            # 第九十七章 剑压城
+            ('维止王朝的剑客信条', ['https://www.wanbentxt.com/21711/14542510.html'], 0),
+
+            # 1
+            ('[综武侠]圣僧', ['https://www.wanbentxt.com/93966676/17490381.html'], 0),
+            ('大航海时代的德鲁伊', ['https://www.wanbentxt.com/21850/13846689.html'], 0),
+            ('绿龙筑巢记', ['https://www.wanbentxt.com/19484/12522059.html'], 0),
+            ('灵吸怪备忘录', ['https://www.wanbentxt.com/19485/12522900.html'], 0),
         ],
 
     ),
 
+
+# 20
+    # 掌阅 书山
+    (
+        ["shushan.zhangyue.net"],
+        {'title': '//h2/text()',
+         'content': '//div[@class="art_con"]/p/text()',
+         "next": '//div[@class="art-box-right"]/ul/li[5]/a/@href'},
+        [
+
+            ('汉宫案', ['http://shushan.zhangyue.net/book/88333/13418439'], 0),
+            ('伏龙', ['http://shushan.zhangyue.net/book/88246/13412092'], 0),
+        ],
+
+    ),
+
+    # 21
+    # uu看书
+    (
+        ["www.uukanshu.com"],
+        {'title': '//h1/text()',
+        'content': '//div[@id="contentbox"]/p/text()',
+         "next": '//div[@class="fanye_cen"]/a[0]/@href'},
+
+        [
+
+            ('飞越三十年', ['https://www.uukanshu.com/b/71327/24125.html'], 0),
+        ],
+
+    ),
+
+    # 22
+    # 开心文学
+    (
+        ["www.kaixinwx.com"],
+        {'title': '//h1/strong/text()',
+         'content': '//div[@class="mainContenr"]/text()',
+         "next": '//div[@class="backs"]/a[3]/@href'},
+        [
+
+            ('飞越三十年', ['https://www.kaixinwx.com/reader/77736/25660113.html'], 0),
+        ],
+
+    ),
 ]

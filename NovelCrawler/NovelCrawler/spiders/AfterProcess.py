@@ -18,7 +18,7 @@ def regxProcess(file, siteIdx):
     regxRules = {
         ".*anbentxt.*": "",
         ".*♂.*": "",
-        "^.{0,4}(首发|最新|[完本神站文]).{0,4}?$": "",
+        "^\s*.{0,4}(首发|最新|[完本神站文]|前往).{0,4}?$": "",
         "</?[a-z]*>": "",
         "\(1/[1-9]\)$": "",
         ".*阅读站.*": "",
@@ -26,12 +26,20 @@ def regxProcess(file, siteIdx):
         "-->>本章未完，点击下一页继续阅读": "",
         ".*浏览器.*": "",
         "^前往$": "",
+        ".*神站.*": "",
+        ".*超多精品.*": "",
+        "喜欢我们请多多推荐给你的朋友们。": "",
+        ".*网址.*": "",
+        ".*完结精品.*": "",
+        "前往——": "",
+        ".*如果觉得此文不错.*": "",
+
     }
 
     content = ""
     with open(file, 'rb') as source:
         content = source.read().decode(encoding="utf-8")
-        print(len(content))
+        print(file, len(content))
 
         # 正则表达式替换
         # $ 在 flags=re.MULTILINE 时才起作用
@@ -63,6 +71,6 @@ def regxProcess(file, siteIdx):
 
 
 if __name__ == '__main__':
-    file = r'E:\Download\蜘蛛巢城的魔人.txt'
+    file = r'E:\Download\[综武侠]圣僧.txt'
     siteIdx = 0
     regxProcess(file, siteIdx)
