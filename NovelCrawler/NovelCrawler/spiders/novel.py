@@ -15,7 +15,7 @@ class NovelSpider(scrapy.Spider):
     name = 'novel'
 
     # site, book
-    book_idx = Rules.IndexClass('www.wanbentxt.com', 8)
+    book_idx = Rules.IndexClass('www.wanbentxt.com', 0)
     allowed_domains = Rules.getDomain(book_idx)
 
 
@@ -25,37 +25,38 @@ class NovelSpider(scrapy.Spider):
         self.book_path = ''
         self.xpathMap = Rules.getXpathMap(self.book_idx)
         self.save = dict()
+        self.path_format = r'E:\Download\{}.txt'
 
     def start_requests(self):
         if self.book_idx.book == -1:
             for book in Rules.getAllBookInfo(self.book_idx):
                 self.bookName = book[0]
-                self.book_path = r'E:\Download' + '\\' + self.bookName + ".txt"
                 url = book[1]
-                self.save[self.book_path] = url
+                self.save[self.bookName] = (0, [url, ''])
                 # print(self.bookName, url)
                 yield scrapy.Request(url=url, callback=self.parse)
         else:
             book = Rules.getBookInfo(self.book_idx)
             self.bookName = book[0]
-            self.book_path = r'E:\Download' + '\\' + self.bookName + ".txt"
             url = book[1]
-            self.save[self.book_path] = url
+            self.save[self.bookName] = (0, [url, ''])
             # print(self.bookName, url)
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        self.logger.info('parse ' + self.bookName)
-        item = items.ChapterItem()
+        x = [k for k, v in self.save.items() if v[1][v[0]] == response.url]
+        book_name = x[0]
+        path = self.path_format.format(book_name)
 
-        x = [k for k, v in self.save.items() if v == response.url]
-        path = x[0]
+        self.logger.info('parse ' + book_name)
+        item = items.ChapterItem()
 
         selector = scrapy.Selector(response)
         item["next"] = selector.xpath(self.xpathMap['next']).extract_first()
         if item["next"] is None:
             self.logger.info("end of crawl")
-            AfterProcess.regxProcess(path, self.book_idx.site)
+            self.save_last_url(book_name)
+            AfterProcess.regxProcess(path, book_name, self.book_idx.site)
             return
 
         self.logger.debug('next_href ' + item["next"])
@@ -81,7 +82,11 @@ class NovelSpider(scrapy.Spider):
         next_href = response.urljoin(item["next"])
         self.logger.info('next_href: ' + next_href)
         self.logger.debug('response.url: ' + response.url)
-        self.save[path] = next_href
+
+        idx, urls = self.save[book_name]
+        idx = (idx + 1) % 2
+        urls[idx] = next_href
+        self.save[book_name] = (idx, urls)
 
         yield Request(next_href, callback=self.parse, dont_filter=True)
         # yield SplashRequest(next_href, callback=self.parse, endpoint='render.html', args=splash_args)
@@ -95,3 +100,9 @@ class NovelSpider(scrapy.Spider):
             dest.write(title.encode(encoding="utf-8"))
             dest.write(item["content"].encode(encoding="utf-8"))
 
+    def save_last_url(self, book_name):
+        idx, urls = self.save[book_name]
+        path = self.path_format.format('last_url')
+        with open(path, 'ab') as dest:
+            record = book_name + " " + urls[0] + " " + urls[1] + "\n"
+            dest.write(record.encode(encoding="utf-8"))

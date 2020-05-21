@@ -66,7 +66,7 @@ urls = {
 
             [
                 # 506
-                ('火热的年代', 'https://www.wanbentxt.com/21849/18576939.html', 0),
+                ('火热的年代', 'https://www.wanbentxt.com/21849/18921315.html', 0),
                 # 963
                 ('旧日剑主', 'https://www.wanbentxt.com/19482/18576962.html', 0),
                 # 60.朕又不是巴列奥略家的种

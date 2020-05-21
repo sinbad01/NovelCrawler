@@ -11,9 +11,9 @@ __author__ = 'tongzhengyu'
 
 import re
 
-def regxProcess(file, site):
-    # if siteIdx != 19:
-    #     return
+def regxProcess(file, book_name, site=''):
+    if site != 'www.wanbentxt.com':
+        return
 
     regxRules = {
         ".*anbentxt.*": "",
@@ -33,8 +33,9 @@ def regxProcess(file, site):
         ".*完结精品.*": "",
         "前往——": "",
         ".*如果觉得此文不错.*": "",
-
     }
+
+    regx_title = '^{}\s*'.format(book_name)
 
     content = ""
     with open(file, 'rb') as source:
@@ -45,6 +46,7 @@ def regxProcess(file, site):
         # $ 在 flags=re.MULTILINE 时才起作用
         for pattern, repl in regxRules.items():
             content = re.sub(pattern, repl, content, flags=re.MULTILINE)
+        content = re.sub(regx_title, "", content, flags=re.MULTILINE)
 
         # 匹配段落被拆分为2章的情况，
         p = '.\n*.*\([2-9]/[2-9]\)$\n*'
@@ -71,6 +73,7 @@ def regxProcess(file, site):
 
 
 if __name__ == '__main__':
-    file = r'E:\Download\[综武侠]圣僧.txt'
-    site = 'www.wanbentxt.net'
-    regxProcess(file, site)
+    file = r'E:\Download\火热的年代.txt'
+    book_name = '火热的年代'
+    site = 'www.wanbentxt.com'
+    regxProcess(file, book_name, site)
